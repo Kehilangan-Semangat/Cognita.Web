@@ -666,7 +666,9 @@ nav a.active-nav::after {
   background: var(--bg-surface);
   box-shadow: 0 0 35px var(--burgundy-glow), 0 20px 50px rgba(0, 0, 0, 0.8);
   position: relative;
-  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .image-frame:hover {
@@ -1348,7 +1350,7 @@ nav a.active-nav::after {
 }
 
 /* --------------------------------------------------------------------------
-   Requirements — Interactive Accordion
+   Requirements — Hardware-Accelerated Accordion via CSS Grid (0fr -> 1fr)
    -------------------------------------------------------------------------- */
 .requirements {
   padding: 130px 0;
@@ -1362,12 +1364,18 @@ nav a.active-nav::after {
   margin-top: 20px;
 }
 
+.requirement-item,
 .accordion-item {
   border-bottom: 1px solid var(--border-hairline);
+  transition: var(--transition-smooth);
 }
 
-.accordion-item:last-child { border-bottom: none; }
+.requirement-item:last-child,
+.accordion-item:last-child {
+  border-bottom: none;
+}
 
+.requirement-item .requirement-header,
 .accordion-trigger {
   width: 100%;
   display: flex;
@@ -1376,13 +1384,14 @@ nav a.active-nav::after {
   padding: 24px 28px;
   background: transparent;
   border: none;
-  cursor: none;
+  cursor: pointer;
   color: var(--text-primary);
   text-align: left;
   transition: var(--transition-smooth);
   font-family: var(--font-sans);
 }
 
+.requirement-item .requirement-header:hover,
 .accordion-trigger:hover {
   background: rgba(22, 78, 94, 0.18);
 }
@@ -1415,31 +1424,44 @@ nav a.active-nav::after {
   text-align: center;
 }
 
+.requirement-item.active .acc-chevron,
 .accordion-item.open .acc-chevron {
   transform: rotate(45deg);
   color: #00e5ff;
 }
 
+.requirement-item.active .requirement-header,
+.requirement-item.active .accordion-trigger,
 .accordion-item.open .accordion-trigger {
   background: rgba(22, 78, 94, 0.22);
   border-left: 2px solid #00e5ff;
   box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.04);
 }
 
-.accordion-body {
-  max-height: 0;
+/* Zero JS-height calculation: Pure GPU CSS grid transition 0fr -> 1fr */
+.requirement-item .content-body,
+.accordion-item .accordion-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
-  transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s ease;
-  padding: 0 28px 0 68px;
   background: rgba(10, 14, 20, 0.5);
 }
 
-.accordion-body.open {
-  max-height: 350px;
-  padding: 22px 28px 26px 68px;
+.requirement-item.active .content-body,
+.accordion-item.open .accordion-body {
+  grid-template-rows: 1fr;
 }
 
-.accordion-body p {
+.requirement-item .content-inner,
+.accordion-item .content-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.requirement-item .content-inner p,
+.accordion-item .accordion-body p {
+  padding: 20px 28px 24px 68px;
   font-size: 0.95rem;
   color: var(--text-secondary);
   line-height: 1.8;
@@ -2077,54 +2099,24 @@ footer {
 }
 
 /* --------------------------------------------------------------------------
-   Scroll-Driven Animations (100% Pure CSS — Progressive Enhancement)
+   GPU Render Optimization & Hardware Acceleration (GSAP & Tilt)
    -------------------------------------------------------------------------- */
-@keyframes fadeInEditorial {
-  from { opacity: 0; transform: translateY(40px); }
-  to   { opacity: 1; transform: translateY(0); }
+.hero-content > *,
+.image-frame,
+.project-card,
+.talent-card,
+.service-item,
+.process-card,
+.requirement-item,
+.bento-cell {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
-@keyframes slideInLeftEditorial {
-  from { opacity: 0; transform: translateX(-40px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes scaleUpEditorial {
-  from { opacity: 0; transform: scale(0.95); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-.fade-in {
-  animation: fadeInEditorial 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.slide-in-left {
-  animation: slideInLeftEditorial 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.bounce-in {
-  animation: scaleUpEditorial 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@supports (animation-timeline: view()) {
-  .fade-in {
-    animation: fadeInEditorial cubic-bezier(0.16, 1, 0.3, 1) both;
-    animation-timeline: view();
-    animation-range: entry 10% cover 28%;
-  }
-  .slide-in-left {
-    animation: slideInLeftEditorial cubic-bezier(0.16, 1, 0.3, 1) both;
-    animation-timeline: view();
-    animation-range: entry 10% cover 28%;
-  }
-  .bounce-in {
-    animation: scaleUpEditorial cubic-bezier(0.16, 1, 0.3, 1) both;
-    animation-timeline: view();
-    animation-range: entry 10% cover 28%;
-  }
-}
-
-/* JS-driven reveal (IntersectionObserver) */
+/* --------------------------------------------------------------------------
+   Fallback Animations & Scroll Utilities
+   -------------------------------------------------------------------------- */
 .visible {
   opacity: 1 !important;
   transform: translateY(0) translateX(0) scale(1) !important;

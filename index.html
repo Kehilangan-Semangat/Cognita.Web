@@ -5,12 +5,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cognita Virtual Agency — Empowering Virtual Creators</title>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Performance-Optimized Deferred Scripts (Non-blocking FCP/LCP) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 
@@ -105,7 +111,7 @@
       <div class="hero-imagery">
         <div class="image-frame" id="hero-logo-frame">
           <div class="frame-tag-top">FIG. 01 — THE VORTEX OF C</div>
-          <img src="img/Cognita Logo (nb).jpg" alt="Cognita Virtual Agency Logo — The Vortex of C" class="hero-logo-img" id="hero-logo-img">
+          <img src="img/Cognita Logo (nb).jpg" alt="Cognita Virtual Agency Logo — The Vortex of C" class="hero-logo-img" id="hero-logo-img" fetchpriority="high" decoding="async">
           <div class="frame-tag-bottom">
             <span>COGNITA VIRTUAL AGENCY</span>
             <span>2026</span>
@@ -126,7 +132,7 @@
   </section>
 
   <!-- About Section (Vision & Core Values) -->
-  <section id="about" class="about container fade-in">
+  <section id="about" class="about container">
 
     <!-- Hybrid Statement -->
     <div class="hybrid-statement">
@@ -225,7 +231,7 @@
   </section>
 
   <!-- Talents Section -->
-  <section id="talents" class="talents-section container fade-in">
+  <section id="talents" class="talents-section container">
     <div class="editorial-header">
       <p class="section-tag">GEN 01 // TRANSMISSIONS</p>
       <span class="script-heading">The Silhouette Vault</span>
@@ -359,7 +365,7 @@
   </section>
 
   <!-- Services Section (Core Disciplines) -->
-  <section id="services" class="services container slide-in-left">
+  <section id="services" class="services container">
     <div class="editorial-header">
       <p class="section-tag">Disciplines &amp; Core Solutions</p>
       <span class="script-heading">What We Architect</span>
@@ -387,7 +393,7 @@
   </section>
 
   <!-- News & Announcements Section -->
-  <section id="news" class="projects container bounce-in">
+  <section id="news" class="projects container">
     <div class="editorial-header split">
       <div>
         <p class="section-tag">News &amp; Announcements</p>
@@ -400,7 +406,7 @@
       <!-- Article 01 -->
       <article class="project-card">
         <div class="project-preview">
-          <img src="img/Cognita Logo (nb).jpg" alt="Cognita Virtual Agency Brand Identity Launch">
+          <img src="img/Cognita Logo (nb).jpg" alt="Cognita Virtual Agency Brand Identity Launch" loading="lazy" decoding="async">
           <span class="project-index">NEWS 01</span>
         </div>
         <div class="project-details">
@@ -422,58 +428,66 @@
   </section>
 
   <!-- Requirements Section -->
-  <section id="requirements" class="requirements container fade-in">
+  <section id="requirements" class="requirements container">
     <div class="editorial-header">
       <p class="section-tag">Contract &amp; Audition Protocol</p>
       <span class="script-heading">Joining Cognita</span>
     </div>
 
     <div class="accordion">
-      <div class="accordion-item">
-        <button class="accordion-trigger" data-acc="1">
+      <div class="requirement-item accordion-item">
+        <button class="requirement-header accordion-trigger" type="button" aria-expanded="false" data-acc="1">
           <span class="acc-num">01.</span>
           <span class="acc-title">Kualifikasi Dasar</span>
           <span class="acc-chevron">+</span>
         </button>
-        <div class="accordion-body" id="acc-1">
-          <p>Minimal berusia 18 tahun, memiliki passion di bidang gaming/livestreaming, komunikatif, dan siap membangun persona virtual secara konsisten.</p>
+        <div class="content-body accordion-body" id="acc-1">
+          <div class="content-inner">
+            <p>Minimal berusia 18 tahun, memiliki passion di bidang gaming/livestreaming, komunikatif, dan siap membangun persona virtual secara konsisten.</p>
+          </div>
         </div>
       </div>
-      <div class="accordion-item">
-        <button class="accordion-trigger" data-acc="2">
+      <div class="requirement-item accordion-item">
+        <button class="requirement-header accordion-trigger" type="button" aria-expanded="false" data-acc="2">
           <span class="acc-num">02.</span>
           <span class="acc-title">Komitmen Jadwal</span>
           <span class="acc-chevron">+</span>
         </button>
-        <div class="accordion-body" id="acc-2">
-          <p>Sanggup melakukan livestreaming minimal 3–4 kali seminggu dan berkolaborasi dalam event lintas talenta Cognita.</p>
+        <div class="content-body accordion-body" id="acc-2">
+          <div class="content-inner">
+            <p>Sanggup melakukan livestreaming minimal 3–4 kali seminggu dan berkolaborasi dalam event lintas talenta Cognita.</p>
+          </div>
         </div>
       </div>
-      <div class="accordion-item">
-        <button class="accordion-trigger" data-acc="3">
+      <div class="requirement-item accordion-item">
+        <button class="requirement-header accordion-trigger" type="button" aria-expanded="false" data-acc="3">
           <span class="acc-num">03.</span>
           <span class="acc-title">Dukungan Teknis &amp; Hardware</span>
           <span class="acc-chevron">+</span>
         </button>
-        <div class="accordion-body" id="acc-3">
-          <p>Memiliki perangkat PC/Laptop dasar dan internet stabil; tim teknis Cognita akan menangani rigging Live2D, konfigurasi OBS, serta optimasi performa PC anti-lag.</p>
+        <div class="content-body accordion-body" id="acc-3">
+          <div class="content-inner">
+            <p>Memiliki perangkat PC/Laptop dasar dan internet stabil; tim teknis Cognita akan menangani rigging Live2D, konfigurasi OBS, serta optimasi performa PC anti-lag.</p>
+          </div>
         </div>
       </div>
-      <div class="accordion-item">
-        <button class="accordion-trigger" data-acc="4">
+      <div class="requirement-item accordion-item">
+        <button class="requirement-header accordion-trigger" type="button" aria-expanded="false" data-acc="4">
           <span class="acc-num">04.</span>
           <span class="acc-title">Kontrak Hukum, NDA &amp; Hak Kekayaan Intelektual (IP)</span>
           <span class="acc-chevron">+</span>
         </button>
-        <div class="accordion-body" id="acc-4">
-          <p>Wajib menandatangani perjanjian kerahasiaan (NDA) untuk melindungi identitas asli kreator. Seluruh aset IP karakter (avatar, lore, kanal resmi) dikelola agensi dengan sistem bagi hasil (revenue sharing) transparan dari donasi, membership, sponsorship, dan merchandise.</p>
+        <div class="content-body accordion-body" id="acc-4">
+          <div class="content-inner">
+            <p>Wajib menandatangani perjanjian kerahasiaan (NDA) untuk melindungi identitas asli kreator. Seluruh aset IP karakter (avatar, lore, kanal resmi) dikelola agensi dengan sistem bagi hasil (revenue sharing) transparan dari donasi, membership, sponsorship, dan merchandise.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- CTA Section -->
-  <section class="cta-section slide-in-left">
+  <section class="cta-section">
     <div class="container cta-editorial-box">
       <div class="cta-inner">
         <span class="editorial-tag">COLLABORATION &amp; PARTNERSHIP</span>
